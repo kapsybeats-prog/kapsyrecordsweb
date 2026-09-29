@@ -1,0 +1,475 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&display=swap');
+
+/* ================= RESET Y VARIABLES ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --navy-deep: #050b1a;
+    --navy: #0a1a3a;
+    --navy-mid: #10285a;
+    --gold: #d4af37;
+    --gold-light: #f5d77a;
+    --gold-dark: #9a7b1f;
+    --champagne: #f5e6b3;
+    --accent-color: #ffffff;
+    --text-muted: #a9b2c7;
+    --serif: 'Playfair Display', Georgia, serif;
+    --gold-gradient: linear-gradient(135deg, #f5d77a 0%, #d4af37 45%, #9a7b1f 100%);
+
+    /* Vector 1: Audífonos (dorado) */
+    --svg-phones: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><path d='M42 122V100a58 58 0 0 1 116 0v22' fill='none' stroke='%23f5e6b3' stroke-width='10' stroke-linecap='round'/><path d='M52 100a48 48 0 0 1 96 0' fill='none' stroke='%23d4af37' stroke-width='4' stroke-linecap='round' opacity='.8'/><rect x='24' y='108' width='38' height='64' rx='16' fill='%23d4af37'/><rect x='138' y='108' width='38' height='64' rx='16' fill='%23d4af37'/><rect x='34' y='120' width='16' height='40' rx='8' fill='%2305091a'/><rect x='150' y='120' width='16' height='40' rx='8' fill='%2305091a'/><rect x='24' y='108' width='38' height='64' rx='16' fill='none' stroke='%23f5e6b3' stroke-width='3'/><rect x='138' y='108' width='38' height='64' rx='16' fill='none' stroke='%23f5e6b3' stroke-width='3'/></svg>");
+
+    /* Vector 2: Sintetizador (dorado sobre azul marino) */
+    --svg-synth: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 160'><rect x='8' y='24' width='224' height='116' rx='10' fill='%230b1630' stroke='%23f5e6b3' stroke-width='3'/><circle cx='36' cy='50' r='9' fill='%23d4af37'/><circle cx='68' cy='50' r='9' fill='%23d4af37'/><circle cx='100' cy='50' r='9' fill='%23d4af37'/><path d='M36 44v-3M68 44v-3M100 44v-3' stroke='%23fff' stroke-width='2' stroke-linecap='round'/><rect x='134' y='36' width='84' height='28' rx='4' fill='%2305091a' stroke='%23d4af37' stroke-width='2'/><polyline points='140,50 150,40 160,58 170,42 180,58 190,40 200,56 212,46' fill='none' stroke='%23f5d77a' stroke-width='2.5' stroke-linejoin='round'/><g fill='%23f7f1de'><rect x='18' y='78' width='23' height='54' rx='3'/><rect x='43' y='78' width='23' height='54' rx='3'/><rect x='68' y='78' width='23' height='54' rx='3'/><rect x='93' y='78' width='23' height='54' rx='3'/><rect x='118' y='78' width='23' height='54' rx='3'/><rect x='143' y='78' width='23' height='54' rx='3'/><rect x='168' y='78' width='23' height='54' rx='3'/><rect x='193' y='78' width='23' height='54' rx='3'/></g><g fill='%230b1630'><rect x='34' y='78' width='14' height='32' rx='2'/><rect x='59' y='78' width='14' height='32' rx='2'/><rect x='109' y='78' width='14' height='32' rx='2'/><rect x='134' y='78' width='14' height='32' rx='2'/><rect x='159' y='78' width='14' height='32' rx='2'/><rect x='184' y='78' width='14' height='32' rx='2'/></g></svg>");
+}
+
+body {
+    color: var(--accent-color);
+    overflow-x: hidden;
+    position: relative;
+    background-color: var(--navy-deep);
+}
+
+/* ================= FONDOS (IMAGEN B/W + DEGRADADO AZUL MARINO) ================= */
+.studio-bg {
+    position: fixed;
+    top: -10px; left: -10px; width: 110vw; height: 110vh;
+    background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) blur(12px);
+    z-index: -3;
+}
+
+.gradient-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.22) 0%, transparent 55%),
+        linear-gradient(to bottom, rgba(16, 40, 90, 0.88) 0%, rgba(8, 18, 42, 0.7) 50%, rgba(3, 7, 18, 0.97) 100%);
+    z-index: -2;
+    animation: gradientBreathe 8s ease-in-out infinite alternate;
+}
+
+@keyframes gradientBreathe {
+    0% { opacity: 0.85; }
+    100% { opacity: 1; }
+}
+
+/* ================= AUDÍFONOS FLOTANTES ================= */
+.animated-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.headphone {
+    position: absolute;
+    width: 150px; height: 150px;
+    color: rgba(212, 175, 55, 0.09);
+    filter: blur(3px);
+    animation: drift 20s infinite linear alternate;
+}
+
+.h1 { top: 20%; left: 15%; animation-duration: 25s; }
+.h2 { top: 60%; left: 80%; animation-duration: 30s; animation-direction: alternate-reverse; width: 220px; height: 220px; }
+
+@keyframes drift {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(40px, -50px) rotate(20deg); }
+    100% { transform: translate(-30px, 40px) rotate(-15deg); }
+}
+
+/* ================= HERO Y ANIMACIONES ================= */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+    animation: fadeInDown 1.5s ease-out;
+}
+
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Título dorado metálico con brillo que recorre el texto */
+.glitch-title {
+    font-family: var(--serif);
+    font-size: 5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    background: linear-gradient(100deg, #9a7b1f 0%, #f5d77a 25%, #fff6d6 50%, #f5d77a 75%, #9a7b1f 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.45));
+    animation: goldSweep 6s linear infinite, goldPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes goldSweep {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 250% 50%; }
+}
+
+@keyframes goldPulse {
+    0% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+    100% { filter: drop-shadow(0 0 28px rgba(245, 215, 122, 0.65)); }
+}
+
+.fade-in-text {
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+/* ================= EFECTO SHINE ================= */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: skewX(-25deg);
+    animation: shineLight 4s infinite;
+}
+
+@keyframes shineLight {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 15px 44px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--navy-deep);
+    background: var(--gold-gradient);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 50px;
+    border: 1px solid var(--gold-light);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+.cta-btn:hover {
+    background: var(--navy);
+    color: var(--gold-light);
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.7);
+    transform: translateY(-5px);
+}
+
+/* ================= SECCIÓN BEATS ================= */
+section { position: relative; z-index: 2; }
+
+.section-title {
+    font-family: var(--serif);
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--champagne);
+}
+
+/* Línea dorada decorativa bajo los títulos */
+.section-title::after {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 2px;
+    margin: 18px auto 0;
+    background: var(--gold-gradient);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.7);
+}
+
+.beats-section {
+    padding: 100px 5%;
+}
+
+.catalog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.catalog-list:hover .card:not(:hover) {
+    filter: blur(8px);
+    opacity: 0.3;
+    transform: scale(0.95);
+}
+
+.card {
+    background: linear-gradient(135deg, rgba(10, 26, 58, 0.88), rgba(5, 11, 26, 0.92));
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease, filter 0.4s ease, opacity 0.4s ease, border-color 0.4s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.3);
+    border-color: var(--gold);
+    z-index: 10;
+}
+
+.card-cover-wrapper {
+    width: 250px;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+/* ---------- PORTADAS VECTORIALES (audífonos / sintetizador) ---------- */
+.card-cover {
+    --glow: #d4af37;
+    --hue: 0deg;
+    --art: var(--svg-phones);
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--glow) 28%, #0a1a3a) 0%, #050b1a 78%);
+    transition: transform 0.6s ease;
+    animation: coverGlow 3.4s ease-in-out infinite;
+}
+
+.card-cover::before {
+    content: "";
+    position: absolute;
+    inset: 18% 14%;
+    background: var(--art) center / contain no-repeat;
+    filter: hue-rotate(var(--hue)) drop-shadow(0 0 8px var(--glow));
+    animation: artFloat 5s ease-in-out infinite, artGlow 2.6s ease-in-out infinite alternate;
+}
+
+.card-cover::after {
+    content: "";
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 55%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--glow);
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+    animation: ringPulse 3s ease-out infinite;
+}
+
+.card:hover .card-cover { transform: scale(1.12); }
+.card:hover .card-cover::before { animation-duration: 2.4s, 1.2s; }
+
+/* Paleta premium: dorado y zafiro alternados */
+.bg-1    { --glow: #d4af37; --hue: 0deg;   --art: var(--svg-phones); }
+.bg-2    { --glow: #4da3ff; --hue: 170deg; --art: var(--svg-synth); }
+.bg-3    { --glow: #f5d77a; --hue: 0deg;   --art: var(--svg-phones); }
+.bg-4    { --glow: #5b8cff; --hue: 175deg; --art: var(--svg-synth); }
+.bg-gold { --glow: #ffdf70; --hue: 0deg;   --art: var(--svg-phones); }
+
+.bg-2::before, .bg-4::before { inset: 22% 8%; }
+
+@keyframes artFloat {
+    0%, 100% { transform: translateY(0) rotate(-3deg) scale(1); }
+    50%      { transform: translateY(-9%) rotate(3deg) scale(1.06); }
+}
+@keyframes artGlow {
+    from { filter: hue-rotate(var(--hue)) drop-shadow(0 0 6px var(--glow)); }
+    to   { filter: hue-rotate(var(--hue)) drop-shadow(0 0 18px var(--glow)) drop-shadow(0 0 36px var(--glow)); }
+}
+@keyframes ringPulse {
+    0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+@keyframes coverGlow {
+    0%, 100% { box-shadow: inset 0 0 25px color-mix(in srgb, var(--glow) 30%, transparent); }
+    50%      { box-shadow: inset 0 0 60px color-mix(in srgb, var(--glow) 70%, transparent); }
+}
+
+.card-body {
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 30px;
+}
+
+.card-text { flex-grow: 1; text-align: left; }
+.card-text h3 { font-family: var(--serif); font-size: 1.6rem; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--champagne); }
+.description { font-size: 1rem; color: #c3cadb; line-height: 1.7; font-weight: 300; }
+.card-action { text-align: right; min-width: 180px; }
+.price {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.buy-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    background: transparent;
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.buy-btn:hover { background: var(--gold-gradient); color: var(--navy-deep); box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); }
+
+/* TARJETA ESPECIAL (Beat personalizado): más luminosa y exclusiva */
+.card-gold {
+    border: 1px solid var(--gold-light);
+    background: linear-gradient(135deg, rgba(40, 32, 8, 0.9), rgba(10, 26, 58, 0.92) 55%, rgba(5, 11, 26, 0.95));
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.18);
+}
+.card-gold:hover { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 55px rgba(245, 215, 122, 0.5); border-color: var(--gold-light); }
+.gold-text { color: var(--gold-light) !important; text-shadow: 0 0 16px rgba(212, 175, 55, 0.5); }
+.gold-price { filter: drop-shadow(0 0 10px rgba(245, 215, 122, 0.5)); }
+.btn-gold { background: var(--gold-gradient); color: var(--navy-deep); border-color: var(--gold-light); }
+.btn-gold:hover { background: #fff6d6; color: var(--navy-deep); box-shadow: 0 0 28px rgba(245, 215, 122, 0.9); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .glitch-title { font-size: 2.8rem; letter-spacing: 3px; }
+    .section-title { font-size: 2rem; }
+    .card { flex-direction: column; }
+    .card-cover-wrapper { width: 100%; min-height: 220px; border-right: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.25); }
+    .card-body { flex-direction: column; text-align: center; gap: 20px; }
+    .card-text { text-align: center; }
+    .card-action { text-align: center; }
+}
+
+/* ================= AGENDA / BOOKING ================= */
+.booking-section {
+    padding: 100px 5%;
+    background: linear-gradient(to bottom, transparent, rgba(3, 7, 18, 1));
+}
+
+.booking-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 45px 35px;
+    border-radius: 18px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: linear-gradient(160deg, rgba(10, 26, 58, 0.75), rgba(5, 11, 26, 0.85));
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.08);
+}
+.booking-content .section-title { font-size: 2.2rem; margin-bottom: 25px; }
+.booking-desc { margin-bottom: 40px; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; font-weight: 300; }
+.booking-form { display: flex; flex-direction: column; gap: 25px; }
+
+.input-group input, .input-group select {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(5, 11, 26, 0.75);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.input-group select option { background: var(--navy-deep); color: #fff; }
+
+.input-group input:focus, .input-group select:focus {
+    border-color: var(--gold);
+    background: rgba(16, 40, 90, 0.6);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(212, 175, 55, 0.25);
+}
+
+.submit-btn {
+    padding: 18px;
+    background: var(--gold-gradient);
+    color: var(--navy-deep);
+    border: 1px solid var(--gold-light);
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(212, 175, 55, 0.6); filter: brightness(1.1); }
+
+/* ================= FOOTER Y WHATSAPP ================= */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--navy-deep);
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    color: #7f89a3;
+    z-index: 2;
+    position: relative;
+}
+footer strong { color: var(--gold-light); font-size: 1.1rem; display: block; margin-bottom: 10px; }
+
+.whatsapp-btn {
+    position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
+    background-color: #25D366; color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); z-index: 1000;
+    animation: float-wa 3s ease-in-out infinite, glow-wa 2s infinite alternate;
+    transition: all 0.3s ease;
+}
+.whatsapp-btn svg { width: 35px; height: 35px; }
+.whatsapp-btn:hover { background-color: #128C7E; transform: scale(1.15) translateY(-5px); animation: none; box-shadow: 0 0 30px rgba(37, 211, 102, 0.8); }
+
+@keyframes float-wa { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+@keyframes glow-wa { 0% { box-shadow: 0 0 10px rgba(37, 211, 102, 0.4); } 100% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.7); } } 
